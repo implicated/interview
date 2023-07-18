@@ -4,7 +4,7 @@ site:
   start_page: interview::index.adoc
 content:
   sources:
-    - url: ../interview-docs
+    - url: ../interview
       start_paths:
         - docs
       branches: HEAD

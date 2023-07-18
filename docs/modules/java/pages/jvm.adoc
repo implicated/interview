@@ -1,0 +1,86 @@
+= JVM
+
+== JDK vs JRE vs JVM vs JIT
+
+JDK(Java Development Kit)::
+`JDK` 是 `Java` 环境的核心组件，提供了编译、调试和执行 `Java` 程序所需的所有工具、可执行文件和二进制文件。`JDK` 是特定于平台的软件，这就是为什么我们在 `Windows`、`Mac` 和 `Unix` 系统上有单独的安装程序。我们可以说 `JDK` 是 `JRE` 的超集，因为它包含带有 `Java` 编译器、调试器和核心类的 `JRE` 。
+JRE(Java Runtime Environment)::
+`JRE` 是 `JVM` 的实现。它提供了一个执行 `Java` 程序的平台。`JRE` 由 `JVM`、`Java` 二进制文件和其他类组成，可以成功执行任何程序。`JRE` 不包含任何开发工具，如`Java`编译器、调试器、`JShell` 等。如果您只想执行 `Java` 程序，可以只安装 `JRE。`
+JVM(Java virtual machine)::
+`JVM` 是 `Java` 编程语言的核心。当我们执行 `Java` 程序时，`JVM` 负责将字节码转换为机器专用代码。`JVM` 也是与平台相关的，并提供核心的 `Java` 功能，如内存管理、垃圾收集、安全等。`JVM` 是可定制的，我们可以使用``Java``选项来定制它。例如，为``JVM``分配最小和最大内存。`JVM` 之所以称为虚拟的，是因为它提供了一个不依赖于底层操作系统和机器硬件的接口。这种对硬件和操作系统的独立性使得``Java``程序可以随时随地编写一次运行。
+JIT(Just-in-time Compiler)::
+`JIT` 是 `JVM` 的一部分，它优化了将字节码转换为机器专用语言的过程。它同时编译相似的字节码，并将字节码编译为机器专用语言所需的总时间减少。
+
+*总结一下：*
+
+. JDK用于开发目的，而JRE用于运行Java程序。
+. JDK和JRE都包含JVM，因此我们可以运行Java程序。
+. JVM是Java编程语言的核心，并提供平台独立性。
+
+.JDK > JRE > JVM > JIT
+[plantuml]
+----
+@startuml
+skinparam componentStyle rectangle
+
+package "JDK  (javac,  jar,  debugging tools,  APIs)" as jdk{
+package "JRE(java,  javaw,  classloader,  libraries)" as jre{
+package JVM {
+["JIT compilter"]
+}
+@enduml
+----
+
+== 一个 `.java` 文件的运行过程
+
+. `javac hello.java`
+* 使用 `javac` 命令编译``.java`` 文件为``.class``文件
+. `java hello`
+* 运行 `.class` 文件
+** 启动一个 JVM 进程
+** `java classloder` 加载 `class` 到 `JVM` 内存
+** `JVM` 基于自己的字节码执行引擎，来执行加载到内存里的类
+
+== 类加载器
+
+.类加载器分类
+. Bootstrap Classloader
+* 启动类加载器它主要负责加载``JDK``内部类，通常是位于``$JAVA_HOME/jre/lib``目录中的``rt.jar``和其他核心库。
+* 启动类加载器充当所有其他``ClassLoader``实例的父实例。
+* 启动类加载器是核心``JVM``的一部分，并且是用本机代码编写的。
+. Extension Classloader
+* 扩展类加载器是启动类加载器的子类，负责加载标准核心``Java``类的扩展，以便平台上运行的所有应用程序都可以使用它们。 从JDK扩展目录加载，通常是``$JAVA_HOME/lib/ext``目录，或在``java.ext.dirs``系统属性中提到的任何其他目录。
+. Application Classloader(aka System Classloader)
+. Custom Classloader
+
+****
+[source,java,indent=0,options=nowrap]
+----
+import org.openjsse.legacy8ujsse.net.ssl.Legacy8uJSSE;
+
+import java.util.ArrayList;
+
+public class Scratch {
+    public static void main(String[] args) {
+        // Application Classloader
+        System.out.println("Classloader of this class:"
+                + Scratch.class.getClassLoader());
+
+        // Extension Classloader
+        System.out.println("Classloader of Legacy8uJSSE:"
+                + Legacy8uJSSE.class.getClassLoader());
+
+        // Bootstrap Classloader
+        // print null, because is written in native code, not Java, so it doesn't show up as a Java class
+        System.out.println("Classloader of ArrayList:"
+                + ArrayList.class.getClassLoader());
+    }
+}
+----
+****
+
+
+
+
+
+

@@ -3,3 +3,4 @@
 :sectanchors:
 :sectnums:
 :sectnumlevels: 2
+:!figure-caption:
