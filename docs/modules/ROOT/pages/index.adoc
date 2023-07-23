@@ -1,3 +1,27 @@
 = Java Interview
 
 include::../nav.adoc[]
+
+****
+
+使用版本
+
+.中间件
+* Redis: 5.0.5
+* MqSQL: 5.7.30-log
+* ElasticSearch: 7.4.0 商业版
+* RocketMQ: 4.0系列 标准版
+
+.jar
+* SpringBoot: 2.2.2.RELEASE(2.3.5.RELEASE)
+* ElasticSearch: 6.8.5(7.6.2)
+
+****
+
+****
+DDD
+
+* 核心域：trade user product
+* 通用域：arch
+* 支撑域：ref
+****

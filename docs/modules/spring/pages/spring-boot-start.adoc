@@ -1,1 +1,5 @@
 = Spring Boot 启动流程
+
+image::spring-boot-start.png[]
+
+

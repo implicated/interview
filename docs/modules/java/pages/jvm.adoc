@@ -1,4 +1,5 @@
 = JVM
+:toc:
 
 == JDK vs JRE vs JVM vs JIT
 
@@ -41,7 +42,50 @@ package JVM {
 ** `java classloder` 加载 `class` 到 `JVM` 内存
 ** `JVM` 基于自己的字节码执行引擎，来执行加载到内存里的类
 
-== 类加载器
+== `JVM` 组成
+
+* 线程共享
+** 堆
+*** 用来放置 Java 对象实例
+*** 堆是垃圾收集器重点照顾的区域
+*** 堆内空间还会被不同的垃圾收集器进行进一步的细分，如新生代和老年代
+**** 新生代是大部分对象创建和销毁的区域
+**** 老年代是放置长生命周期的对象或者对象太大，完全无法在新生代找到足够长的连续空闲空间，JVM 就会直接分配到老年代
+** 方法区
+*** 用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。
+* 线程私有
+** 程序计数器
+*** 当前线程所执行的字节码的行号指示器
+** 虚拟机栈
+*** 内部保存一个个的栈帧(Stack Frame)，对应着一次次的 Java 方法调用。
+*** JVM 直接对 Java 栈的操作只有两个，就是对栈帧的压栈和出栈。
+*** 栈帧中存储着局部变量表、操作数(operand)栈、动态链接、方法正常退出或者异常退出的定义等。
+** 本地方法栈
+*** 和 Java 虚拟机栈是非常相似的，支持对 本地方法的调用
+
+== 类加载过程
+
+Java 的类加载过程分为三个主要步骤：加载、链接、初始化。
+
+* 加载（Loading）
+** Java 将字节码数据从不同的数据源读取到 JVM 中， 并映射为 JVM 认可的数据结构(Class 对象)，这里的数据源可能是各种各样的形态，如 jar 文件、class 文件，甚至是网络数据源等;如果输入数据不是 ClassFile 的结构，则会抛 出 `ClassFormatError`。
+** 加载阶段是用户参与的阶段，我们可以自定义类加载器，去实现自己的类加载过程。
+* 链接（Linking）
+** 验证(Verification)
+*** 这是虚拟机安全的重要保障，JVM 需要核验字节信息是符合 Java 虚拟机规范的，否则就被认为是 VerifyError，这样就防止了恶意信息或者不合规的 信息危害 JVM 的运行，验证阶段有可能触发更多 class 的加载。
+** 准备(Preparation)
+*** 创建类或接口中的静态变量，并初始化静态变量的初始值。但这 里的“初始化”和下面的显式初始化阶段是有区别的，侧重点在于分配所需要的内存空 间，不会去执行更进一步的 JVM 指令。
+** 解析(Resolution)
+*** 在这一步会将常量池中的符号引用(symbolic reference)替换 为直接引用。在Java 虚拟机规范中，详细介绍了类、接口、方法和字段等各个方面的解析。
+
+* 初始化（Initialization）
+** 这一步真正去执行类初始化的代码逻辑，包括静态字 段赋值的动作，以及执行类定义中的静态初始化块内的逻辑，编译器在编译阶段就会把这部 分逻辑整理好，父类型的初始化逻辑优先于当前类型的逻辑。
+
+== 双亲委派机制
+
+简单说就是当类加载器(Class-Loader)试图加载某个类型的时 候，除非父加载器找不到相应类型，否则尽量将这个任务代理给当前加载器的父加载器去 做。使用委派模型的目的是避免重复加载 Java 类型。
+
+=== 类加载器
 
 .类加载器分类
 . Bootstrap Classloader
@@ -51,9 +95,16 @@ package JVM {
 . Extension Classloader
 * 扩展类加载器是启动类加载器的子类，负责加载标准核心``Java``类的扩展，以便平台上运行的所有应用程序都可以使用它们。 从JDK扩展目录加载，通常是``$JAVA_HOME/lib/ext``目录，或在``java.ext.dirs``系统属性中提到的任何其他目录。
 . Application Classloader(aka System Classloader)
+* 应用程序类加载器负责将所有应用程序级别的类加载到``JVM``中。它加载在类路径环境变量、``-classpath``或``-cp``命令行选项中找到的文件。
+* 它是``Extension Classloader``的子类。
 . Custom Classloader
+* 自定义类加载器，大多数情况，内置的类加载器就足够了，部分场景需要用到自定义类加载器
+** 帮助修改现有的字节码，例如编织代理
+** 动态创建适合用户需求的类，例如在JDBC中，不同驱动程序实现之间的切换是通过动态类加载完成的。
+** 实现类版本控制机制，同时为具有相同名称和包的类加载不同的字节码。这可以通过URL类加载器(通过URL加载JAR)或定制类加载器来完成。
 
 ****
+.打印不同的类加载器
 [source,java,indent=0,options=nowrap]
 ----
 import org.openjsse.legacy8ujsse.net.ssl.Legacy8uJSSE;
@@ -78,6 +129,40 @@ public class Scratch {
 }
 ----
 ****
+
+=== 加载一个 `.java` 文件
+
+[source,java,indent=0,options=nowrap]
+----
+public class Scratch {
+    public static void main(String[] args) {
+        load();
+    }
+
+    public static void load() {
+        User u = new User();
+        u.getId();
+    }
+}
+----
+
+[plantuml]
+----
+@startuml
+[Scratch.class] as s
+package jvm {
+package "main线程" {
+[load栈帧\
+s] -- [main栈帧]
+}
+}
+package heap{
+[User.class] as u
+}
+s - [main]:类加载
+u - [load]:类加载
+@enduml
+----
 
 
 

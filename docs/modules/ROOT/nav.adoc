@@ -9,9 +9,9 @@
 * MySQL
 ** xref:mysql:index.adoc[]
 * 中间件
-** Redis
-** ElasticSearch
-** RocketMQ
+** xref:redis:index.adoc[]
+** xref:elastic:index.adoc[]
+** xref:mq:index.adoc[]
 * 容器
 ** docker
 ** k8s

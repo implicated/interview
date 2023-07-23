@@ -8,3 +8,22 @@
 * MySQL自己选错了
 ** `force index`
 
+== SQL优化
+
+* 避免使用select
+* 用union all代替union
+* 小表驱动大表
+* 批量操作
+* 多用limit
+* in中值太多
+* 增量查询
+* 高效的分页
+* 用连接查询代替子查询
+* join的表不宜过多
+* join时要注意
+* 控制索引的数量
+* 选择合理的字段类型
+* 提升group by的效率
+* 索引优化
+
+https://mp.weixin.qq.com/s/MLb-vUrJHukSA5PqqVMvSw[read more]
