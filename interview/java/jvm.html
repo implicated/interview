@@ -56,7 +56,7 @@
     <span class="nav-text">Spring</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spring/ioc.html">IOC</a>
+    <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spring/aop.html">AOP</a>
@@ -86,13 +86,13 @@
     <span class="nav-text">中间件</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <span class="nav-text">Redis</span>
+    <a class="nav-link" href="../redis/index.html">Redis</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <span class="nav-text">ElasticSearch</span>
+    <a class="nav-link" href="../elastic/index.html">ElasticSearch</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <span class="nav-text">RocketMQ</span>
+    <a class="nav-link" href="../mq/index.html">RocketMQ</a>
   </li>
 </ul>
   </li>
@@ -134,6 +134,21 @@
 </aside>
 <article class="doc">
 <h1 class="page">JVM</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#jdk-vs-jre-vs-jvm-vs-jit">JDK vs JRE vs JVM vs JIT</a></li>
+<li><a href="#一个-java-文件的运行过程">一个 <code>.java</code> 文件的运行过程</a></li>
+<li><a href="#jvm-组成"><code>JVM</code> 组成</a></li>
+<li><a href="#类加载过程">类加载过程</a></li>
+<li><a href="#双亲委派机制">双亲委派机制</a>
+<ul class="sectlevel2">
+<li><a href="#类加载器">类加载器</a></li>
+<li><a href="#加载一个-java-文件">加载一个 <code>.java</code> 文件</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="sect1">
 <h2 id="jdk-vs-jre-vs-jvm-vs-jit"><a class="anchor" href="#jdk-vs-jre-vs-jvm-vs-jit"></a>JDK vs JRE vs JVM vs JIT</h2>
 <div class="sectionbody">
@@ -224,8 +239,180 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="类加载器"><a class="anchor" href="#类加载器"></a>类加载器</h2>
+<h2 id="jvm-组成"><a class="anchor" href="#jvm-组成"></a><code>JVM</code> 组成</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>线程共享</p>
+<div class="ulist">
+<ul>
+<li>
+<p>堆</p>
+<div class="ulist">
+<ul>
+<li>
+<p>用来放置 Java 对象实例</p>
+</li>
+<li>
+<p>堆是垃圾收集器重点照顾的区域</p>
+</li>
+<li>
+<p>堆内空间还会被不同的垃圾收集器进行进一步的细分，如新生代和老年代</p>
+<div class="ulist">
+<ul>
+<li>
+<p>新生代是大部分对象创建和销毁的区域</p>
+</li>
+<li>
+<p>老年代是放置长生命周期的对象或者对象太大，完全无法在新生代找到足够长的连续空闲空间，JVM 就会直接分配到老年代</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>方法区</p>
+<div class="ulist">
+<ul>
+<li>
+<p>用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>线程私有</p>
+<div class="ulist">
+<ul>
+<li>
+<p>程序计数器</p>
+<div class="ulist">
+<ul>
+<li>
+<p>当前线程所执行的字节码的行号指示器</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>虚拟机栈</p>
+<div class="ulist">
+<ul>
+<li>
+<p>内部保存一个个的栈帧(Stack Frame)，对应着一次次的 Java 方法调用。</p>
+</li>
+<li>
+<p>JVM 直接对 Java 栈的操作只有两个，就是对栈帧的压栈和出栈。</p>
+</li>
+<li>
+<p>栈帧中存储着局部变量表、操作数(operand)栈、动态链接、方法正常退出或者异常退出的定义等。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>本地方法栈</p>
+<div class="ulist">
+<ul>
+<li>
+<p>和 Java 虚拟机栈是非常相似的，支持对 本地方法的调用</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="类加载过程"><a class="anchor" href="#类加载过程"></a>类加载过程</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java 的类加载过程分为三个主要步骤：加载、链接、初始化。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>加载（Loading）</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java 将字节码数据从不同的数据源读取到 JVM 中， 并映射为 JVM 认可的数据结构(Class 对象)，这里的数据源可能是各种各样的形态，如 jar 文件、class 文件，甚至是网络数据源等;如果输入数据不是 ClassFile 的结构，则会抛 出 <code>ClassFormatError</code>。</p>
+</li>
+<li>
+<p>加载阶段是用户参与的阶段，我们可以自定义类加载器，去实现自己的类加载过程。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>链接（Linking）</p>
+<div class="ulist">
+<ul>
+<li>
+<p>验证(Verification)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>这是虚拟机安全的重要保障，JVM 需要核验字节信息是符合 Java 虚拟机规范的，否则就被认为是 VerifyError，这样就防止了恶意信息或者不合规的 信息危害 JVM 的运行，验证阶段有可能触发更多 class 的加载。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>准备(Preparation)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>创建类或接口中的静态变量，并初始化静态变量的初始值。但这 里的“初始化”和下面的显式初始化阶段是有区别的，侧重点在于分配所需要的内存空 间，不会去执行更进一步的 JVM 指令。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>解析(Resolution)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>在这一步会将常量池中的符号引用(symbolic reference)替换 为直接引用。在Java 虚拟机规范中，详细介绍了类、接口、方法和字段等各个方面的解析。</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>初始化（Initialization）</p>
+<div class="ulist">
+<ul>
+<li>
+<p>这一步真正去执行类初始化的代码逻辑，包括静态字 段赋值的动作，以及执行类定义中的静态初始化块内的逻辑，编译器在编译阶段就会把这部 分逻辑整理好，父类型的初始化逻辑优先于当前类型的逻辑。</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="双亲委派机制"><a class="anchor" href="#双亲委派机制"></a>双亲委派机制</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>简单说就是当类加载器(Class-Loader)试图加载某个类型的时 候，除非父加载器找不到相应类型，否则尽量将这个任务代理给当前加载器的父加载器去 做。使用委派模型的目的是避免重复加载 Java 类型。</p>
+</div>
+<div class="sect2">
+<h3 id="类加载器"><a class="anchor" href="#类加载器"></a>类加载器</h3>
 <div class="olist arabic">
 <div class="title">类加载器分类</div>
 <ol class="arabic">
@@ -257,15 +444,46 @@
 </li>
 <li>
 <p>Application Classloader(aka System Classloader)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>应用程序类加载器负责将所有应用程序级别的类加载到<code>JVM</code>中。它加载在类路径环境变量、<code>-classpath</code>或<code>-cp</code>命令行选项中找到的文件。</p>
+</li>
+<li>
+<p>它是<code>Extension Classloader</code>的子类。</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Custom Classloader</p>
+<div class="ulist">
+<ul>
+<li>
+<p>自定义类加载器，大多数情况，内置的类加载器就足够了，部分场景需要用到自定义类加载器</p>
+<div class="ulist">
+<ul>
+<li>
+<p>帮助修改现有的字节码，例如编织代理</p>
+</li>
+<li>
+<p>动态创建适合用户需求的类，例如在JDBC中，不同驱动程序实现之间的切换是通过动态类加载完成的。</p>
+</li>
+<li>
+<p>实现类版本控制机制，同时为具有相同名称和包的类加载不同的字节码。这可以通过URL类加载器(通过URL加载JAR)或定制类加载器来完成。</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </li>
 </ol>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="listingblock">
+<div class="title">打印不同的类加载器</div>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-java" data-lang="java"><span class="hljs-keyword">import</span> org.openjsse.legacy8ujsse.net.ssl.Legacy8uJSSE;
 
@@ -292,17 +510,40 @@
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="加载一个-java-文件"><a class="anchor" href="#加载一个-java-文件"></a>加载一个 <code>.java</code> 文件</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-java" data-lang="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Scratch</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        load();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">load</span><span class="hljs-params">()</span> {
+        <span class="hljs-type">User</span> <span class="hljs-variable">u</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();
+        u.getId();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="_images/diag-d8b3ed3d7943b56695508a41bd4126346e2a0266.svg" alt="Diagram">
+</div>
+</div>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Interview</a></span>
-  <span class="next"><a href="../spring/ioc.html">IOC</a></span>
+  <span class="next"><a href="../spring/ioc.html">IOC and DI</a></span>
 </nav>
 </article>
   </div>
 </main>
 </div>
 <footer class="footer">
-  <p>Last updated on 2023-07-18 05:32:47</p>
+  <p>Last updated on 2023-07-23 23:14:43</p>
 </footer>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>

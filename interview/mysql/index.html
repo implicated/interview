@@ -6,6 +6,7 @@
     <title>索引 :: Implicated</title>
     <link rel="canonical" href="https://docs.implicated.com/interview/mysql/index.html">
     <link rel="prev" href="../spring/spring-boot-start.html">
+    <link rel="next" href="../redis/index.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -55,7 +56,7 @@
     <span class="nav-text">Spring</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spring/ioc.html">IOC</a>
+    <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spring/aop.html">AOP</a>
@@ -85,13 +86,13 @@
     <span class="nav-text">中间件</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <span class="nav-text">Redis</span>
+    <a class="nav-link" href="../redis/index.html">Redis</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <span class="nav-text">ElasticSearch</span>
+    <a class="nav-link" href="../elastic/index.html">ElasticSearch</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <span class="nav-text">RocketMQ</span>
+    <a class="nav-link" href="../mq/index.html">RocketMQ</a>
   </li>
 </ul>
   </li>
@@ -161,15 +162,73 @@
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="sql优化"><a class="anchor" href="#sql优化"></a>SQL优化</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>避免使用select</p>
+</li>
+<li>
+<p>用union all代替union</p>
+</li>
+<li>
+<p>小表驱动大表</p>
+</li>
+<li>
+<p>批量操作</p>
+</li>
+<li>
+<p>多用limit</p>
+</li>
+<li>
+<p>in中值太多</p>
+</li>
+<li>
+<p>增量查询</p>
+</li>
+<li>
+<p>高效的分页</p>
+</li>
+<li>
+<p>用连接查询代替子查询</p>
+</li>
+<li>
+<p>join的表不宜过多</p>
+</li>
+<li>
+<p>join时要注意</p>
+</li>
+<li>
+<p>控制索引的数量</p>
+</li>
+<li>
+<p>选择合理的字段类型</p>
+</li>
+<li>
+<p>提升group by的效率</p>
+</li>
+<li>
+<p>索引优化</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://mp.weixin.qq.com/s/MLb-vUrJHukSA5PqqVMvSw">read more</a></p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../spring/spring-boot-start.html">Spring Boot 启动流程</a></span>
+  <span class="next"><a href="../redis/index.html">Redis</a></span>
 </nav>
 </article>
   </div>
 </main>
 </div>
 <footer class="footer">
-  <p>Last updated on 2023-07-18 05:32:47</p>
+  <p>Last updated on 2023-07-23 23:14:43</p>
 </footer>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>

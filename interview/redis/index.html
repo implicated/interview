@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Redis :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/redis/index.html">
+    <link rel="prev" href="../mysql/index.html">
+    <link rel="next" href="../elastic/index.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.implicated.com">Implicated</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="interview" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Interview</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">并发</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../java/jvm.html">JVM</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spring/aop.html">AOP</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring Boot</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spring/spring-boot-start.html">Spring Boot 启动流程</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">MySQL</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mysql/index.html">索引</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">中间件</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="index.html">Redis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../elastic/index.html">ElasticSearch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mq/index.html">RocketMQ</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">容器</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">docker</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">k8s</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Interview</a></li>
+    <li>中间件</li>
+    <li><a href="index.html">Redis</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Redis</h1>
+<div class="sect1">
+<h2 id="数据结构"><a class="anchor" href="#数据结构"></a>数据结构</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>String</p>
+</li>
+<li>
+<p>List</p>
+</li>
+<li>
+<p>Set</p>
+</li>
+<li>
+<p>ZSet</p>
+</li>
+<li>
+<p>Hash</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="io多路复用"><a class="anchor" href="#io多路复用"></a>I/O多路复用</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>引用知乎上一个高赞的回答来解释什么是I/O多路复用。假设你是一个老师，让30个学生解答一道题目，然后检查学生做的是否正确，你有下面几个选择：</p>
+</div>
+<div class="paragraph">
+<p>第一种选择：按顺序逐个检查，先检查A，然后是B，之后是C、D。。。这中间如果有一个学生卡住，全班都会被耽误。这种模式就好比，你用循环挨个处理socket，根本不具有并发能力。</p>
+</div>
+<div class="paragraph">
+<p>第二种选择：你创建30个分身，每个分身检查一个学生的答案是否正确。 这种类似于为每一个用户创建一个进程或者- 线程处理连接。</p>
+</div>
+<div class="paragraph">
+<p>第三种选择，你站在讲台上等，谁解答完谁举手。这时C、D举手，表示他们解答问题完毕，你下去依次检查C、D的答案，然后继续回到讲台上等。此时E、A又举手，然后去处理E和A。</p>
+</div>
+<div class="paragraph">
+<p>第一种就是阻塞IO模型，第三种就是I/O复用模型。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="持久化"><a class="anchor" href="#持久化"></a>持久化</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Redis 共有三种数据持久化的方式：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AOF 日志：每执行一条写操作命令，就把该命令以追加的方式写入到一个文件里；</p>
+</li>
+<li>
+<p>RDB 快照：将某一时刻的内存数据，以二进制的方式写入磁盘；</p>
+</li>
+<li>
+<p>混合持久化方式：Redis 4.0 新增的方式，集成了 AOF 和 RBD 的优点；</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="aof"><a class="anchor" href="#aof"></a>AOF</h3>
+<div class="paragraph">
+<p>Redis 在执行完一条写操作命令后，就会把该命令以追加的方式写入到一个文件里，然后 Redis 重启时，会读取该文件记录的命令，然后逐一执行命令的方式来进行数据恢复。</p>
+</div>
+<div class="paragraph">
+<p>AOF日志记录的是操作命令，不是实际的数据，所以用 AOF 方法做故障恢复时，需要全量把日志都执行一遍，一旦 AOF 日志非常多，势必会造成 Redis 的恢复操作缓慢。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rdb"><a class="anchor" href="#rdb"></a>RDB</h3>
+<div class="paragraph">
+<p>RDB 快照就是记录某一个瞬间的内存数据，记录的是实际数据。 Redis 的快照是全量快照，也就是说每次执行快照，都是把内存中的「所有数据」都记录到磁盘中。</p>
+</div>
+<div class="paragraph">
+<p>Redis 提供了两个命令来生成 RDB 文件，分别是 <code>save</code> 和 <code>bgsave</code>，他们的区别就在于是否在「主线程」里执行：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>执行了 save 命令，就会在主线程生成 RDB 文件，由于和执行操作命令在同一个线程，所以如果写入 RDB 文件的时间太长，会阻塞主线程；</p>
+</li>
+<li>
+<p>执行了 bgsave 命令，会创建一个子进程来生成 RDB 文件，这样可以避免主线程的阻塞；</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="混合持久化方式"><a class="anchor" href="#混合持久化方式"></a>混合持久化方式</h3>
+<div class="paragraph">
+<p>当开启了混合持久化时，在 AOF 重写日志时，fork 出来的重写子进程会先将与主线程共享的内存数据以 RDB 方式写入到 AOF 文件，然后主线程处理的操作命令会被记录在重写缓冲区里，重写缓冲区里的增量命令会以 AOF 方式写入到 AOF 文件，写入完成后通知主进程将新的含有 RDB 格式和 AOF 格式的 AOF 文件替换旧的的 AOF 文件。</p>
+</div>
+<div class="paragraph">
+<p>也就是说，使用了混合持久化，AOF 文件的前半部分是 RDB 格式的全量数据，后半部分是 AOF 格式的增量数据。</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">混合持久化优点：</dt>
+<dd>
+<p>混合持久化结合了 RDB 和 AOF 持久化的优点，开头为 RDB 的格式，使得 Redis 可以更快的启动，同时结合 AOF 的优点，有减低了大量数据丢失的风险。</p>
+</dd>
+<dt class="hdlist1">混合持久化缺点：</dt>
+<dd>
+<p>AOF 文件中添加了 RDB 格式的内容，使得 AOF 文件的可读性变得很差； 兼容性差，如果开启混合持久化，那么此混合持久化 AOF 文件，就不能用在 Redis 4.0 之前版本了。</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="过期删除与内存淘汰"><a class="anchor" href="#过期删除与内存淘汰"></a>过期删除与内存淘汰</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>每当我们对一个 key 设置了过期时间时，Redis 会把该 key 带上过期时间存储到一个过期字典（expires dict）中，也就是说「过期字典」保存了数据库中所有 key 的过期时间。</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">惰性删除策略 （访问时删）</dt>
+<dd>
+<p>不主动删除过期键，每次从数据库访问 key 时，都检测 key 是否过期，如果过期则删除该 key。</p>
+</dd>
+<dt class="hdlist1">定期删除策略（定时随机删）</dt>
+<dd>
+<p>每隔一段时间「随机」从数据库中取出一定数量的 key 进行检查，并删除其中的过期key。 默认每秒进行 10 次过期检查一次数据库，随机选择 20 个 key 判断是否过期。。</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="redis-内存淘汰策略有哪些"><a class="anchor" href="#redis-内存淘汰策略有哪些"></a>Redis 内存淘汰策略有哪些？</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Redis 内存淘汰策略共有八种，这八种策略大体分为「不进行数据淘汰」和「进行数据淘汰」两类策略。</p>
+</div>
+<div class="sect2">
+<h3 id="不进行数据淘汰的策略"><a class="anchor" href="#不进行数据淘汰的策略"></a>不进行数据淘汰的策略</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>noeviction（Redis3.0之后，默认的内存淘汰策略） ：它表示当运行内存超过最大设置内存时，不淘汰任何数据，这时如果有新的数据写入，则会触发 OOM，但是如果没用数据写入的话，只是单纯的查询或者删除操作的话，还是可以正常工作。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="进行数据淘汰的策略"><a class="anchor" href="#进行数据淘汰的策略"></a>进行数据淘汰的策略</h3>
+<div class="paragraph">
+<p>针对「进行数据淘汰」这一类策略，又可以细分为「在设置了过期时间的数据中进行淘汰」和「在所有数据范围内进行淘汰」这两类策略。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>在设置了过期时间的数据中进行淘汰：</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>volatile-random</code>：随机淘汰设置了过期时间的任意键值；</p>
+</li>
+<li>
+<p><code>volatile-ttl</code>：优先淘汰更早过期的键值。</p>
+</li>
+<li>
+<p><code>volatile-lru</code>（Redis3.0 之前，默认的内存淘汰策略）：淘汰所有设置了过期时间的键值中，最久未使用的键值；</p>
+</li>
+<li>
+<p><code>volatile-lfu</code>（Redis 4.0 后新增的内存淘汰策略）：淘汰所有设置了过期时间的键值中，最少使用的键值；</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>在所有数据范围内进行淘汰：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>allkeys-random：随机淘汰任意键值;</p>
+</li>
+<li>
+<p>allkeys-lru：淘汰整个键值中最久未使用的键值；</p>
+</li>
+<li>
+<p>allkeys-lfu（Redis 4.0 后新增的内存淘汰策略）：淘汰整个键值中最少使用的键值</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="缓存设计"><a class="anchor" href="#缓存设计"></a>缓存设计</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="什么是缓存击穿缓存穿透缓存雪崩"><a class="anchor" href="#什么是缓存击穿缓存穿透缓存雪崩"></a>什么是缓存击穿、缓存穿透、缓存雪崩？</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">缓存击穿 </dt>
+<dd>
+<p>一个并发访问量比较大的key在某个时间过期，导致所有的请求直接打在DB上。</p>
+</dd>
+</dl>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>解决⽅案：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>加锁更新，⽐如请求查询A，发现缓存中没有，对A这个key加锁，同时去数据库查询数据，写⼊缓存，再返回给⽤户，这样后⾯的请求就可以从缓存中拿到数据了。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">缓存穿透</dt>
+<dd>
+<p>缓存穿透指的查询缓存和数据库中都不存在的数据，这样每次请求直接打到数据库，就好像缓存不存在一样</p>
+</dd>
+</dl>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>缓存穿透可能有两种原因：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>自身业务代码问题</p>
+</li>
+<li>
+<p>恶意攻击，爬虫造成空命中</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>它主要有两种解决办法：</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">缓存空值/默认值 </dt>
+<dd>
+<p>一种方式是在数据库不命中之后，把一个空对象或者默认值保存到缓存，之后再访问这个数据，就会从缓存中获取，这样就保护了数据库。</p>
+<div class="ulist">
+<ul>
+<li>
+<p>需要更多的内存空间（如果是攻击，问题更严重）</p>
+</li>
+<li>
+<p>缓存层和存储层的数据会有一段时间窗口的不一致，可能会对业务有一定影响。</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">布隆过滤器</dt>
+<dd>
+<p>除了缓存空对象，我们还可以在存储和缓存之前，加一个布隆过滤器，做一层过滤。 布隆过滤器里会保存数据是否存在，如果判断数据不不能再，就不会访问存储。</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">缓存雪崩</dt>
+<dd>
+<p>某⼀时刻发⽣⼤规模的缓存失效的情况，例如缓存服务宕机、大量key在同一时间过期，这样的后果就是⼤量的请求进来直接打到DB上，可能导致整个系统的崩溃，称为雪崩。</p>
+</dd>
+</dl>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>解决⽅案：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>提高缓存可用性 集群部署：通过集群来提升缓存的可用性，可以利用Redis本身的Redis Cluster或者第三方集群方案如Codis等。</p>
+</li>
+<li>
+<p>多级缓存：设置多级缓存，第一级缓存失效的基础上，访问二级缓存，每一级缓存的失效时间都不同。</p>
+</li>
+<li>
+<p>过期时间</p>
+<div class="ulist">
+<ul>
+<li>
+<p>均匀过期：为了避免大量的缓存在同一时间过期，可以把不同的 key 过期时间随机生成，避免过期时间太过集中。</p>
+</li>
+<li>
+<p>热点数据永不过期。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>熔断降级</p>
+<div class="ulist">
+<ul>
+<li>
+<p>服务熔断：当缓存服务器宕机或超时响应时，为了防止整个系统出现雪崩，暂时停止业务服务访问缓存系统。</p>
+</li>
+<li>
+<p>服务降级：当出现大量缓存失效，而且处在高并发高负荷的情况下，在业务系统内部暂时舍弃对一些非核心的接口和数据的请求，而直接返回一个提前准备好的 fallback（退路）错误处理信息。</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../mysql/index.html">索引</a></span>
+  <span class="next"><a href="../elastic/index.html">ElasticSearch</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Last updated on 2023-07-23 23:14:43</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+  </body>
+</html>
