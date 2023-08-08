@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Q&amp;A :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/java/jvm/qa.html">
+    <link rel="prev" href="jdk-clt.html">
+    <link rel="next" href="ref.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.implicated.com">Implicated</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="interview" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Interview</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Java Interview</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JDK 源码</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text"><a href="https://implicated.github.io/jdk-docs/index.html" target="_blank" rel="noopener">手动编译 JDK 源码</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">并发编程</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JVM</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="java-platform.html">Java Platform</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bytecode.html">ByteCode</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="jvm.html">JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="classloader.html">Classloader</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="execution-engine.html">Execution Engine</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="native-interface.html">Native Interface</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="jmm.html">Runtime Data Area</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jvm-options.html">JVM 启动参数</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="gc.html">垃圾回收</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jdk-clt.html">JDK 内置命令行工具</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="qa.html">Q&amp;A</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ref.html">Ref</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java 框架</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/aop.html">AOP</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring Boot</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/spring-boot-start.html">Spring Boot 启动流程</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">MySQL</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/run.html">SQL 语句的执行过程</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/log.html">Log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/index.html">索引</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../mysql/innodb.html">InnoDB</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Interview</a></li>
+    <li>Java</li>
+    <li>JVM</li>
+    <li><a href="qa.html">Q&amp;A</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Q&amp;A</h1>
+<div class="sect1">
+<h2 id="年轻代为什么分三个区"><a class="anchor" href="#年轻代为什么分三个区"></a>年轻代为什么分三个区</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. heap</caption>
+<colgroup>
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><div class="content"><div class="paragraph">
+<p>新生代 (1/3堆空间)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>老生代 (2/3堆空间)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Eden (8/10)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>From Survivor (1/10)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>To Survivor (1/10)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>降低老年代的内存分配压力,通过设置两个s区来对年轻对象进行拦截,降低fullGc的次数</p>
+</li>
+<li>
+<p>分三代能使老年代作为担保来应付s区容不下存活对象的情况</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>回收基于 <strong>标记-复制算法</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>每个新对象先进入 <code>Eden</code></p>
+</li>
+<li>
+<p>第一次 MinorGC 存活的对象由 <code>Eden</code> 进入 <code>From Survivor</code>，清空 <code>Eden</code></p>
+</li>
+<li>
+<p>第二次 MinorGC 存活的对象由 <code>Eden</code>、<code>From Survivor</code> 进入 <code>To Survivor</code>，清空 <code>Eden</code>、<code>From Survivor</code></p>
+</li>
+<li>
+<p>第三次 MinorGC 存活的对象由 <code>Eden</code>、<code>To Survivor</code> 进入 <code>From Survivor</code>，清空 <code>Eden</code>、<code>To Survivor</code></p>
+</li>
+<li>
+<p>如此反复三四步直到对象年龄达标或者 <code>Survivor</code> 区容不下存活对象时晋升到老年代</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="年轻代三个区比例为什么是-811"><a class="anchor" href="#年轻代三个区比例为什么是-811"></a>年轻代三个区比例为什么是 8:1:1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>深入理解虚拟机一书里有描述,IBM的一项研究,表明新生代中有98%的对象是朝生夕灭的,换言之,每次mionrGC后存活的对象应该小于等于2%，</p>
+</div>
+<div class="paragraph">
+<p>所以看起来采用复制算法的新生代似乎可以不用将内存分成大小相等的两块了,但考虑到实验偏差以及实际情况的多样性,</p>
+</div>
+<div class="paragraph">
+<p>jvm 默认预留了10%的内存用于存放存活对象,此时结合上文描述的,新生代最优应该分成三块,所以得再预留一块10%的内存给s区,那么自然剩下的80%就是e区的大小了；</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="jdk-clt.html">JDK 内置命令行工具</a></span>
+  <span class="next"><a href="ref.html">Ref</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Last updated on 2023-08-08 05:37:34</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

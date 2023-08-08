@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JDK 内置命令行工具 :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/java/jvm/jdk-clt.html">
+    <link rel="prev" href="gc.html">
+    <link rel="next" href="qa.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.implicated.com">Implicated</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="interview" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Interview</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Java Interview</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JDK 源码</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text"><a href="https://implicated.github.io/jdk-docs/index.html" target="_blank" rel="noopener">手动编译 JDK 源码</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">并发编程</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JVM</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="java-platform.html">Java Platform</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bytecode.html">ByteCode</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="jvm.html">JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="classloader.html">Classloader</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="execution-engine.html">Execution Engine</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="native-interface.html">Native Interface</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="jmm.html">Runtime Data Area</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jvm-options.html">JVM 启动参数</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="gc.html">垃圾回收</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="jdk-clt.html">JDK 内置命令行工具</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="qa.html">Q&amp;A</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ref.html">Ref</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java 框架</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/aop.html">AOP</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring Boot</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/spring-boot-start.html">Spring Boot 启动流程</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">MySQL</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/run.html">SQL 语句的执行过程</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/log.html">Log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/index.html">索引</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../mysql/innodb.html">InnoDB</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Interview</a></li>
+    <li>Java</li>
+    <li>JVM</li>
+    <li><a href="jdk-clt.html">JDK 内置命令行工具</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">JDK 内置命令行工具</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>JDK 自带的工具和程序可以分为 2 大类型：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>开发工具</p>
+</li>
+<li>
+<p>诊断分析工具</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dev-tools"><a class="anchor" href="#dev-tools"></a>Dev Tools</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">工具</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">简介</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java 应用的启动程序</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">javac</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDK 内置的编译工具</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">javap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">反编译 class 文件的工具</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">javadoc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">根据 Java 代码和标准注释，自动生成相关的 API 说明文档</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">javah</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JNI 开发时，根据 Java 代码生成需要的 .h 文件。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extcheck</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">检查某个 jar 文件和运行时扩展 jar 有没有版本冲突，很少使用</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jdb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Debugger 可以调试本地和远端程序，属于 JPDA 中的一个 Demo 实现，供其他调试器参考。开发时很少使用</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jdeps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">探测 class 或 jar 包需要的依赖</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">打包工具，可以将文件和目录打包成为 .jar 文件；.jar 文件本质上就是 zip 文件，只是后缀不同。使用时按顺序对应好选项和参数即可。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keytool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">安全证书和密钥的管理工具（支持生成、导入、导出等操作）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jarsigner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jar 文件签名和验证工具</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">policytool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">实际上这是一款图形界面工具，管理本机的 Java 安全策略</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="诊断分析工具"><a class="anchor" href="#诊断分析工具"></a>诊断分析工具</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="jps"><a class="anchor" href="#jps"></a>jps</h3>
+<div class="paragraph">
+<p>类似 <code>ps</code>，用于展示 Java 进程信息（列表）。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jstat"><a class="anchor" href="#jstat"></a>jstat</h3>
+<div class="paragraph">
+<p>jstat 用来监控 JVM 内置的各种统计信息，主要是内存和 GC 相关的信息。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jmap"><a class="anchor" href="#jmap"></a>jmap</h3>
+<div class="paragraph">
+<p>jmap 主要用来 Dump 堆内存。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jcmd"><a class="anchor" href="#jcmd"></a>jcmd</h3>
+<div class="paragraph">
+<p>jcmd 是 JDK 8 推出的一款本地诊断工具，只支持连接本机上同一个用户空间下的 JVM 进程。用来来取代 jmap。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jstack"><a class="anchor" href="#jstack"></a>jstack</h3>
+<div class="paragraph">
+<p>jstack 工具可以打印出 Java 线程的调用栈信息（Stack Trace）。一般用来查看存在哪些线程，诊断是否存在死锁等。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jinfo"><a class="anchor" href="#jinfo"></a>jinfo</h3>
+<div class="paragraph">
+<p>jinfo 用来查看具体生效的配置信息以及系统属性，还支持动态增加一部分参数。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jrunscript-和-jjs"><a class="anchor" href="#jrunscript-和-jjs"></a>jrunscript 和 jjs</h3>
+<div class="paragraph">
+<p>可以用来执行 JS 代码</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>jrunscript 可以直接用来执行 JS 代码块或 JS 文件。</p>
+</li>
+<li>
+<p>jjs 则只能交互模式，但是可以指定 JavaScript 支持的 ECMAScript 语言版本，比如 ES5 或者 ES6。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>如果是 JDK 9 及以上的版本，则有一个更完善的 REPL 工具——JShell，可以直接解释执行 Java 代码。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ref"><a class="anchor" href="#ref"></a>Ref</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/index.html" target="_blank" rel="noopener">JDK Development Tools</a></p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="gc.html">垃圾回收</a></span>
+  <span class="next"><a href="qa.html">Q&amp;A</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Last updated on 2023-08-08 05:37:34</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

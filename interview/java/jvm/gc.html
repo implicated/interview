@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>垃圾回收 :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/java/jvm/gc.html">
+    <link rel="prev" href="jvm-options.html">
+    <link rel="next" href="jdk-clt.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.implicated.com">Implicated</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="interview" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Interview</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Java Interview</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JDK 源码</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text"><a href="https://implicated.github.io/jdk-docs/index.html" target="_blank" rel="noopener">手动编译 JDK 源码</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">并发编程</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JVM</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="java-platform.html">Java Platform</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bytecode.html">ByteCode</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="jvm.html">JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="classloader.html">Classloader</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="execution-engine.html">Execution Engine</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="native-interface.html">Native Interface</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="jmm.html">Runtime Data Area</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jvm-options.html">JVM 启动参数</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="gc.html">垃圾回收</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jdk-clt.html">JDK 内置命令行工具</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="qa.html">Q&amp;A</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ref.html">Ref</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java 框架</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/aop.html">AOP</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring Boot</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/spring-boot-start.html">Spring Boot 启动流程</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">MySQL</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/run.html">SQL 语句的执行过程</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/log.html">Log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/index.html">索引</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../mysql/innodb.html">InnoDB</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Interview</a></li>
+    <li>Java</li>
+    <li>JVM</li>
+    <li><a href="gc.html">垃圾回收</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">垃圾回收</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../_images/gc-process.png" alt="gc process">
+</div>
+<div class="title">Figure 1. GC 的主要过程，出自阿里《码出高效-Java 开发手册》</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="minor-gc-v-s-major-gc-v-s-full-gc"><a class="anchor" href="#minor-gc-v-s-major-gc-v-s-full-gc"></a>Minor GC v.s. Major GC v.s. Full GC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://clu.gitbook.io/about-java-memory-model-jmm-a-k-a-jsr-133/chapter-3-4-gc-basics" target="_blank" rel="noopener">Chapter 3-4. GC - Basics - JMM, Java Concurrency and JVM</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gc-算法"><a class="anchor" href="#gc-算法"></a>GC 算法</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>标记 - 清除算法（Mark-Sweep）</p>
+</li>
+<li>
+<p>复制算法（Coping）</p>
+</li>
+<li>
+<p>标记整理算法（Mark-Compact）</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="标记-清除算法mark-sweep"><a class="anchor" href="#标记-清除算法mark-sweep"></a>标记 - 清除算法（Mark-Sweep）</h3>
+<div class="paragraph">
+<p>STW 停顿（Stop The World pause，全线暂停），让应用程序暂时停止，让 JVM 进行内存清理工作。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="复制算法coping"><a class="anchor" href="#复制算法coping"></a>复制算法（Coping）</h3>
+
+</div>
+<div class="sect2">
+<h3 id="标记整理算法mark-compact"><a class="anchor" href="#标记整理算法mark-compact"></a>标记整理算法（Mark-Compact）</h3>
+
+</div>
+<div class="sect2">
+<h3 id="summary"><a class="anchor" href="#summary"></a>Summary</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Mark-Sweep: 通常用於 tenured generation</p>
+</li>
+<li>
+<p>Copying: 通常用於 young generation</p>
+</li>
+<li>
+<p>Mark-Compact:通常用於 tenured generation</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="垃圾收集器"><a class="anchor" href="#垃圾收集器"></a>垃圾收集器</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java 8 版本的 Hotspot JVM，默认情况下使用的是并行垃圾收集器（Parallel GC）。其他厂商提供的 JDK 8 基本上也默认使用并行垃圾收集器。</p>
+</div>
+<div class="paragraph">
+<p>Java 9 之后，官方 JDK 默认使用的垃圾收集器是 G1。</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="jvm-options.html">JVM 启动参数</a></span>
+  <span class="next"><a href="jdk-clt.html">JDK 内置命令行工具</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Last updated on 2023-08-08 05:37:34</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

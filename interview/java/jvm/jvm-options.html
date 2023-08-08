@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JVM 启动参数 :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/java/jvm/jvm-options.html">
+    <link rel="prev" href="jmm.html">
+    <link rel="next" href="gc.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.implicated.com">Implicated</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="interview" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Interview</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Java Interview</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JDK 源码</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text"><a href="https://implicated.github.io/jdk-docs/index.html" target="_blank" rel="noopener">手动编译 JDK 源码</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">并发编程</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JVM</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="java-platform.html">Java Platform</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bytecode.html">ByteCode</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="jvm.html">JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="classloader.html">Classloader</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="execution-engine.html">Execution Engine</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="native-interface.html">Native Interface</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="jmm.html">Runtime Data Area</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="jvm-options.html">JVM 启动参数</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="gc.html">垃圾回收</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jdk-clt.html">JDK 内置命令行工具</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="qa.html">Q&amp;A</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ref.html">Ref</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java 框架</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/aop.html">AOP</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring Boot</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/spring-boot-start.html">Spring Boot 启动流程</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">MySQL</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/run.html">SQL 语句的执行过程</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/log.html">Log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/index.html">索引</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../mysql/innodb.html">InnoDB</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Interview</a></li>
+    <li>Java</li>
+    <li>JVM</li>
+    <li><a href="jvm-options.html">JVM 启动参数</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">JVM 启动参数</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>直接通过命令行启动 Java 程序的格式为:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-shell" data-lang="shell">java [options] classname [args]
+java [options] -jar filename [args]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>其中:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>[options]</code> 部分称为 <code><strong>“JVM 选项”</strong></code>，对应 IDE 中的 <code>VM options</code>, 可用 <code>jps -v</code> 查看。</p>
+</li>
+<li>
+<p><code>[args]</code> 部分是指 <code><strong>“传给main函数的参数”</strong></code>，对应 IDE 中的 <code>Program arguments</code>, 可用 <code>jps -m</code> 查看。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>JVM 的启动参数, 从形式上可以简单分为：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>以 <code><strong>-</strong></code> 开头为标准参数，所有的 JVM 都要实现这些参数，并且向后兼容。</p>
+</li>
+<li>
+<p>以 <code><strong>-X</strong></code> 开头为非标准参数， 基本都是传给 JVM 的，默认 JVM 实现这些参数的功能，但是并不保证所有 JVM 实现都满足，且不保证向后兼容。</p>
+</li>
+<li>
+<p>以 <code><strong>-XX:</strong></code> 开头为非稳定参数, 专门用于控制 JVM 的行为，跟具体的 JVM 实现有关，随时可能会在下个版本取消。</p>
+</li>
+<li>
+<p><code><strong>-XX:+-Flags</code></strong> 形式, <code>+-</code> 是对布尔值进行开关。</p>
+</li>
+<li>
+<p><code><strong>-XX:key=value</strong></code> 形式, 指定某个选项的值。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="设置系统属性"><a class="anchor" href="#设置系统属性"></a>设置系统属性</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="agent-相关的选项"><a class="anchor" href="#agent-相关的选项"></a>Agent 相关的选项</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="jvm-运行模式"><a class="anchor" href="#jvm-运行模式"></a>JVM 运行模式</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="设置堆内存"><a class="anchor" href="#设置堆内存"></a>设置堆内存</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>JVM 总内存 = 堆 + 栈 + 非堆 + 堆外内存。</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">-Xmx</dt>
+<dd>
+<p>指定最大堆内存。如 <code>-Xmx4g</code>。这只是限制了 Heap 部分的最大值为 4g。这个内存不包括栈内存，也不包括堆外使用的内存。</p>
+</dd>
+<dt class="hdlist1">-Xms</dt>
+<dd>
+<p>指定堆内存空间的初始大小。 如 <code>-Xms4g</code>。 而且指定的内存大小，并不是操作系统实际分配的初始值，而是 GC 先规划好，用到才分配。 专用服务器上需要保持 <code>-Xms</code> 和 <code>-Xmx</code> 一致，否则应用刚启动可能就有好几个 FullGC。当两者配置不一致时，堆内存扩容可能会导致性能抖动。</p>
+</dd>
+<dt class="hdlist1">-Xmn</dt>
+<dd>
+<p>等价于 <code>-XX:NewSize</code>，使用 G1 垃圾收集器 不应该 设置该选项，在其他的某些业务场景下可以设置。官方建议设置为 <code>-Xmx</code> 的 1/2 ~ 1/4。</p>
+</dd>
+<dt class="hdlist1">-XX:MaxPermSize=size</dt>
+<dd>
+<p>这是 JDK1.7 之前使用的。Java8 默认允许的 Meta 空间无限大，此参数无效。</p>
+</dd>
+<dt class="hdlist1">-XX:MaxMetaspaceSize=size</dt>
+<dd>
+<p><code>Java8</code> 默认不限制 <code>Meta</code> 空间, 一般不允许设置该选项。</p>
+</dd>
+<dt class="hdlist1">XX:MaxDirectMemorySize=size</dt>
+<dd>
+<p>系统可以使用的最大堆外内存，这个参数跟 <code>-Dsun.nio.MaxDirectMemorySize</code> 效果相同。</p>
+</dd>
+<dt class="hdlist1">-Xss</dt>
+<dd>
+<p>设置每个线程栈的字节数。 例如 <code>-Xss1m</code> 指定线程栈为 <code>1MB</code>，与 <code>-XX:ThreadStackSize=1m</code> 等价</p>
+</dd>
+</dl>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/jvm-options.png" alt="jvm options">
+</div>
+<div class="title">Figure 1. 注：jdk8 开始，用 <code>MetaSpace</code> 区取代了 <code>Perm</code> 区（永久代），所以相应的 <code>jvm</code> 参数变成 <code>-XX:MetaspaceSize</code> 及 <code>-XX:MaxMetaspaceSize</code> 。</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gc-日志相关的参数"><a class="anchor" href="#gc-日志相关的参数"></a>GC 日志相关的参数</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="指定垃圾收集器相关参数"><a class="anchor" href="#指定垃圾收集器相关参数"></a>指定垃圾收集器相关参数</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>-XX:+UseG1GC</code> ：使用 G1 垃圾回收器</p>
+</li>
+<li>
+<p><code>-XX:+UseConcMarkSweepGC</code> ：使用 CMS 垃圾回收器</p>
+</li>
+<li>
+<p><code>-XX:+UseSerialGC</code> ：使用串行垃圾回收器</p>
+</li>
+<li>
+<p><code>-XX:+UseParallelGC</code> ：使用并行垃圾回收器</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="特殊情况执行脚本的参数"><a class="anchor" href="#特殊情况执行脚本的参数"></a>特殊情况执行脚本的参数</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="ref"><a class="anchor" href="#ref"></a>Ref</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.oracle.com/java/technologies/javase/vmoptions-jsp.html" target="_blank" rel="noopener">Java HotSpot VM Options</a></p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="jmm.html">Runtime Data Area</a></span>
+  <span class="next"><a href="gc.html">垃圾回收</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Last updated on 2023-08-08 05:37:34</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

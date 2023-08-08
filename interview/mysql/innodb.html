@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>索引 :: Implicated</title>
-    <link rel="canonical" href="https://docs.implicated.com/interview/mysql/index.html">
-    <link rel="prev" href="log.html">
-    <link rel="next" href="innodb.html">
+    <title>InnoDB :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/mysql/innodb.html">
+    <link rel="prev" href="index.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -150,14 +149,14 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="log.html">Log</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="index.html">索引</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">architecture</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="innodb.html">InnoDB</a>
   </li>
 </ul>
@@ -180,7 +179,8 @@
   <ul>
     <li><a href="../index.html">Interview</a></li>
     <li>MySQL</li>
-    <li><a href="index.html">索引</a></li>
+    <li>architecture</li>
+    <li><a href="innodb.html">InnoDB</a></li>
   </ul>
 </nav>
 </div>
@@ -189,95 +189,116 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">索引</h1>
-<div class="sect1">
-<h2 id="索引失效"><a class="anchor" href="#索引失效"></a>索引失效</h2>
+<h1 class="page">InnoDB</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>列上计算(有函数)</p>
-</li>
-<li>
-<p>like 左%</p>
-</li>
-<li>
-<p>联合索引顺序不对</p>
-</li>
-<li>
-<p>MySQL自己选错了</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>force index</code></p>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="https://dev.mysql.com/doc/refman/8.0/en/innodb-architecture.html"><img src="_images/innodb.png" alt="innodb"></a>
 </div>
-</li>
-</ul>
+<div class="title">Figure 1. 结构图</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sql优化"><a class="anchor" href="#sql优化"></a>SQL优化</h2>
+<h2 id="内存结构"><a class="anchor" href="#内存结构"></a>内存结构</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>避免使用select</p>
-</li>
-<li>
-<p>用union all代替union</p>
-</li>
-<li>
-<p>小表驱动大表</p>
-</li>
-<li>
-<p>批量操作</p>
-</li>
-<li>
-<p>多用limit</p>
-</li>
-<li>
-<p>in中值太多</p>
-</li>
-<li>
-<p>增量查询</p>
-</li>
-<li>
-<p>高效的分页</p>
-</li>
-<li>
-<p>用连接查询代替子查询</p>
-</li>
-<li>
-<p>join的表不宜过多</p>
-</li>
-<li>
-<p>join时要注意</p>
-</li>
-<li>
-<p>控制索引的数量</p>
-</li>
-<li>
-<p>选择合理的字段类型</p>
-</li>
-<li>
-<p>提升group by的效率</p>
-</li>
-<li>
-<p>索引优化</p>
-</li>
-</ul>
+<div class="sect2">
+<h3 id="buffer-pool"><a class="anchor" href="#buffer-pool"></a>Buffer Pool</h3>
+<div class="paragraph">
+<p>缓冲池是主内存中 InnoDB 在被访问时缓存表和索引数据的区域。缓冲池允许直接从内存访问频繁使用的数据，从而加快了处理速度。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="change-buffer"><a class="anchor" href="#change-buffer"></a>Change Buffer</h3>
+<div class="paragraph">
+<p>更改缓冲区是一种特殊的数据结构，用于在辅助索引页不在缓冲池中时缓存对这些页的更改。缓冲的更改可能由 INSERT 、 UPDATE 或 DELETE 操作(DML)引起，稍后当其他读取操作将页面加载到缓冲池中时，这些更改将被合并。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adaptive-hash-index"><a class="anchor" href="#adaptive-hash-index"></a>Adaptive Hash Index</h3>
+<div class="paragraph">
+<p>Innodb引擎的一个特殊功能，当它注意到某些索引值使用的非常频繁，发现建立哈希索引（又称散列索引）可以带来速度的提升，Innodb就会在自己的内存缓冲区（Buffer Pool）里，开辟一块区域，建立自适应哈希索引（Adaptive Hash Index，AHI），以便加速查询。</p>
 </div>
 <div class="paragraph">
-<p><a href="https://mp.weixin.qq.com/s/MLb-vUrJHukSA5PqqVMvSw">read more</a></p>
+<p>这种索引属于数据库的自优化，无需DBA进行人为调整。其本质是将频繁访问数据页的索引键值以“Key”放在缓存中，“Value”为该索引键值匹配完整记录所在页面（Page）的位置，通过缩短寻路路径（Search Path）从而提升MySQL查询性能的一种方式。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="log-buffer"><a class="anchor" href="#log-buffer"></a>Log Buffer</h3>
+<div class="paragraph">
+<p>日志缓冲区是保存要写入磁盘上的日志文件的数据的内存区。日志缓冲区大小由 innodb_log_buffer_size 变量定义。默认大小为16MB。日志缓冲区的内容会定期刷新到磁盘。大型日志缓冲区使大型事务能够运行，而无需在事务提交之前将 redo log 数据写入磁盘。因此，如果您有更新、插入或删除许多行的事务，则增加日志缓冲区的大小可以节省磁盘I/O。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="磁盘结构"><a class="anchor" href="#磁盘结构"></a>磁盘结构</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="tablespaces"><a class="anchor" href="#tablespaces"></a>Tablespaces</h3>
+<div class="paragraph">
+<p>表空间是InnoDB存储引擎中逻辑结构的最高层，所有数据逻辑上都存储在表空间中。</p>
+</div>
+<div class="sect3">
+<h4 id="system-tablespace"><a class="anchor" href="#system-tablespace"></a>System Tablespace</h4>
+<div class="paragraph">
+<p>系统表空间是 InnoDB 数据字、双写缓冲、写缓冲和回滚日志的存储位置，如果关闭独立表空间，它也将存储所有表数据和索引。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="file-per-table-tablespaces"><a class="anchor" href="#file-per-table-tablespaces"></a>File-Per-Table Tablespaces</h4>
+<div class="paragraph">
+<p>开启独立表空间之后，</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-ini" data-lang="ini"><span class="hljs-section">[mysqld]</span>
+<span class="hljs-attr">innodb_file_per_table</span>=<span class="hljs-literal">ON</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>InnoDB 会为每个数据库单独创建子文件夹，数据库文件夹内为每个数据表单独建立一个表空间文件 table.ibd 用于存放每个表的数据、索引和插入缓冲 Bitmap 页，同时创建一个 table.frm 文件用于保存表结构信息。其他类型的信息，如回滚信息、插入缓冲索引页、系统事务信息、二次写缓冲等仍存放于系统表空间内。因此即使使用独立表空间，系统表空间也会不断增长。每个独立表空间的初始大小是 96KB。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="general-tablespaces"><a class="anchor" href="#general-tablespaces"></a>General Tablespaces</h4>
+
+</div>
+<div class="sect3">
+<h4 id="undo-tablespaces"><a class="anchor" href="#undo-tablespaces"></a>Undo Tablespaces</h4>
+<div class="paragraph">
+<p>Undo 表空间用于存放一个或多个 undo log 文件。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="temporary-tablespaces"><a class="anchor" href="#temporary-tablespaces"></a>Temporary Tablespaces</h4>
+<div class="sect4">
+<h5 id="session-temporary-tablespaces"><a class="anchor" href="#session-temporary-tablespaces"></a>Session Temporary Tablespaces</h5>
+
+</div>
+<div class="sect4">
+<h5 id="global-temporary-tablespace"><a class="anchor" href="#global-temporary-tablespace"></a>Global Temporary Tablespace</h5>
+
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doublewrite-buffer"><a class="anchor" href="#doublewrite-buffer"></a>Doublewrite Buffer</h3>
+
+</div>
+<div class="sect2">
+<h3 id="redo-log"><a class="anchor" href="#redo-log"></a>Redo Log</h3>
+
+</div>
+<div class="sect2">
+<h3 id="undo-logs"><a class="anchor" href="#undo-logs"></a>Undo Logs</h3>
+
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="log.html">Log</a></span>
-  <span class="next"><a href="innodb.html">InnoDB</a></span>
+  <span class="prev"><a href="index.html">索引</a></span>
 </nav>
 </article>
   </div>

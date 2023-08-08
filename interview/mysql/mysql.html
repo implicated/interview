@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>索引 :: Implicated</title>
-    <link rel="canonical" href="https://docs.implicated.com/interview/mysql/index.html">
-    <link rel="prev" href="log.html">
-    <link rel="next" href="innodb.html">
+    <title>MySQL基本架构 :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/mysql/mysql.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -150,7 +148,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="log.html">Log</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="index.html">索引</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -179,8 +177,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Interview</a></li>
-    <li>MySQL</li>
-    <li><a href="index.html">索引</a></li>
+    <li><a href="mysql.html">MySQL基本架构</a></li>
   </ul>
 </nav>
 </div>
@@ -189,96 +186,119 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">索引</h1>
-<div class="sect1">
-<h2 id="索引失效"><a class="anchor" href="#索引失效"></a>索引失效</h2>
+<h1 class="page">MySQL基本架构</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>列上计算(有函数)</p>
-</li>
-<li>
-<p>like 左%</p>
-</li>
-<li>
-<p>联合索引顺序不对</p>
-</li>
-<li>
-<p>MySQL自己选错了</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>force index</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p>MySQL 从整体来说还是 CS 架构，也就是由客户端（Client）和服务器端（mysqld）两大部分构成。</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sql优化"><a class="anchor" href="#sql优化"></a>SQL优化</h2>
+<h2 id="客户端"><a class="anchor" href="#客户端"></a>客户端</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>避免使用select</p>
-</li>
-<li>
-<p>用union all代替union</p>
-</li>
-<li>
-<p>小表驱动大表</p>
-</li>
-<li>
-<p>批量操作</p>
-</li>
-<li>
-<p>多用limit</p>
-</li>
-<li>
-<p>in中值太多</p>
-</li>
-<li>
-<p>增量查询</p>
-</li>
-<li>
-<p>高效的分页</p>
-</li>
-<li>
-<p>用连接查询代替子查询</p>
-</li>
-<li>
-<p>join的表不宜过多</p>
-</li>
-<li>
-<p>join时要注意</p>
-</li>
-<li>
-<p>控制索引的数量</p>
-</li>
-<li>
-<p>选择合理的字段类型</p>
-</li>
-<li>
-<p>提升group by的效率</p>
-</li>
-<li>
-<p>索引优化</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/programs-client.html" target="_blank" rel="noopener">MySQL Client Programs</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="服务器端逻辑架构"><a class="anchor" href="#服务器端逻辑架构"></a>服务器端逻辑架构</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>服务器端大体可以分为两部分：Server 层和存储引擎层。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mysql-architecture.png" alt="mysql architecture">
+</div>
 </div>
 <div class="paragraph">
-<p><a href="https://mp.weixin.qq.com/s/MLb-vUrJHukSA5PqqVMvSw">read more</a></p>
+<p>大体来说，MySQL 可以分为 Server 层和存储引擎层两部分。</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Server 层</dt>
+<dd>
+<p>包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核 心服务功能，以及所有的内置函数(如日期、时间、数学和加密函数等)，所有跨存储引擎 的功能都在这一层实现，比如存储过程、触发器、视图等。</p>
+</dd>
+<dt class="hdlist1">存储引擎层</dt>
+<dd>
+<p>负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、 Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB，它从 MySQL 5.5.5 版本开 始成为了默认存储引擎。</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="log.html">Log</a></span>
-  <span class="next"><a href="innodb.html">InnoDB</a></span>
-</nav>
+<div class="sect1">
+<h2 id="component"><a class="anchor" href="#component"></a>Component</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">连接器 (MySQL Connectors)</dt>
+<dd>
+<p>连接器负责跟客户端建立连接、获取权限、维持和管理连接。</p>
+</dd>
+<dt class="hdlist1">查询缓存 (Caches &amp; Buffers)</dt>
+<dd>
+<p>缓存查询结果。</p>
+</dd>
+<dt class="hdlist1">分析器 (Parser)</dt>
+<dd>
+<p>对 SQL 语句做解析。先做"词法分析"，再做"语法分析"</p>
+<div class="ulist">
+<ul>
+<li>
+<p>词法分析</p>
+<div class="ulist">
+<ul>
+<li>
+<p>实别关键字、表名、字段名等</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>语法分析</p>
+<div class="ulist">
+<ul>
+<li>
+<p>判断你输入的这个 SQL 语句是否满足 MySQL 语法。</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">优化器 (Optimizer)</dt>
+<dd>
+<p>优化 SQL 语句的执行，判断要使用的索引、不同条件的执行的先后顺序等。</p>
+</dd>
+<dt class="hdlist1">执行器 (NoSQL Interface 、SQL Interface)</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>先判断权限</p>
+<div class="ulist">
+<ul>
+<li>
+<p>执行一条 SQL 涉及的资源要大于 SQL 语句字面上。如触发器等。所以无法在执行之前判断权限。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这 个引擎提供的接口。</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>

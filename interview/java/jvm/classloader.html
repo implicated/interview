@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>JVM :: Implicated</title>
-    <link rel="canonical" href="https://docs.implicated.com/interview/java/jvm.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../spring/ioc.html">
+    <title>Classloader :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/java/jvm/classloader.html">
+    <link rel="prev" href="jvm.html">
+    <link rel="next" href="execution-engine.html">
     <meta name="generator" content="Antora 3.1.4">
-    <link rel="stylesheet" href="../../_/css/site.css">
-    <script>var uiRootPath = '../../_'</script>
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -35,8 +35,15 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Interview</a></h3>
+    <h3 class="title"><a href="../../index.html">Interview</a></h3>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Java Interview</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
@@ -44,67 +51,116 @@
     <span class="nav-text">Java</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <span class="nav-text">并发</span>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JDK 源码</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text"><a href="https://implicated.github.io/jdk-docs/index.html" target="_blank" rel="noopener">手动编译 JDK 源码</a></span>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">并发编程</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JVM</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="java-platform.html">Java Platform</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bytecode.html">ByteCode</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="jvm.html">JVM</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="4">
+    <a class="nav-link" href="classloader.html">Classloader</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="execution-engine.html">Execution Engine</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="native-interface.html">Native Interface</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="jmm.html">Runtime Data Area</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jvm-options.html">JVM 启动参数</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="gc.html">垃圾回收</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jdk-clt.html">JDK 内置命令行工具</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="qa.html">Q&amp;A</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ref.html">Ref</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Spring</span>
+    <span class="nav-text">Java 框架</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../spring/aop.html">AOP</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Spring Boot</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../spring/spring-boot-start.html">Spring Boot 启动流程</a>
   </li>
 </ul>
   </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">MySQL</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mysql/index.html">索引</a>
+    <a class="nav-link" href="../../mysql/run.html">SQL 语句的执行过程</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/log.html">Log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/index.html">索引</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../mysql/innodb.html">InnoDB</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">中间件</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../redis/index.html">Redis</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../elastic/index.html">ElasticSearch</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mq/index.html">RocketMQ</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">容器</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <span class="nav-text">docker</span>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <span class="nav-text">k8s</span>
   </li>
 </ul>
   </li>
@@ -119,12 +175,14 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../index.html" class="home-link"></a>
+  <a href="../../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Interview</a></li>
+    <li><a href="../../index.html">Interview</a></li>
     <li>Java</li>
+    <li>JVM</li>
     <li><a href="jvm.html">JVM</a></li>
+    <li><a href="classloader.html">Classloader</a></li>
   </ul>
 </nav>
 </div>
@@ -133,203 +191,11 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">JVM</h1>
-<div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#jdk-vs-jre-vs-jvm-vs-jit">JDK vs JRE vs JVM vs JIT</a></li>
-<li><a href="#一个-java-文件的运行过程">一个 <code>.java</code> 文件的运行过程</a></li>
-<li><a href="#jvm-组成"><code>JVM</code> 组成</a></li>
-<li><a href="#类加载过程">类加载过程</a></li>
-<li><a href="#双亲委派机制">双亲委派机制</a>
-<ul class="sectlevel2">
-<li><a href="#类加载器">类加载器</a></li>
-<li><a href="#加载一个-java-文件">加载一个 <code>.java</code> 文件</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="sect1">
-<h2 id="jdk-vs-jre-vs-jvm-vs-jit"><a class="anchor" href="#jdk-vs-jre-vs-jvm-vs-jit"></a>JDK vs JRE vs JVM vs JIT</h2>
+<h1 class="page">Classloader</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">JDK(Java Development Kit)</dt>
-<dd>
-<p><code>JDK</code> 是 <code>Java</code> 环境的核心组件，提供了编译、调试和执行 <code>Java</code> 程序所需的所有工具、可执行文件和二进制文件。<code>JDK</code> 是特定于平台的软件，这就是为什么我们在 <code>Windows</code>、<code>Mac</code> 和 <code>Unix</code> 系统上有单独的安装程序。我们可以说 <code>JDK</code> 是 <code>JRE</code> 的超集，因为它包含带有 <code>Java</code> 编译器、调试器和核心类的 <code>JRE</code> 。</p>
-</dd>
-<dt class="hdlist1">JRE(Java Runtime Environment)</dt>
-<dd>
-<p><code>JRE</code> 是 <code>JVM</code> 的实现。它提供了一个执行 <code>Java</code> 程序的平台。<code>JRE</code> 由 <code>JVM</code>、<code>Java</code> 二进制文件和其他类组成，可以成功执行任何程序。<code>JRE</code> 不包含任何开发工具，如`Java`编译器、调试器、<code>JShell</code> 等。如果您只想执行 <code>Java</code> 程序，可以只安装 <code>JRE。</code></p>
-</dd>
-<dt class="hdlist1">JVM(Java virtual machine)</dt>
-<dd>
-<p><code>JVM</code> 是 <code>Java</code> 编程语言的核心。当我们执行 <code>Java</code> 程序时，<code>JVM</code> 负责将字节码转换为机器专用代码。<code>JVM</code> 也是与平台相关的，并提供核心的 <code>Java</code> 功能，如内存管理、垃圾收集、安全等。<code>JVM</code> 是可定制的，我们可以使用<code>Java</code>选项来定制它。例如，为<code>JVM</code>分配最小和最大内存。<code>JVM</code> 之所以称为虚拟的，是因为它提供了一个不依赖于底层操作系统和机器硬件的接口。这种对硬件和操作系统的独立性使得<code>Java</code>程序可以随时随地编写一次运行。</p>
-</dd>
-<dt class="hdlist1">JIT(Just-in-time Compiler)</dt>
-<dd>
-<p><code>JIT</code> 是 <code>JVM</code> 的一部分，它优化了将字节码转换为机器专用语言的过程。它同时编译相似的字节码，并将字节码编译为机器专用语言所需的总时间减少。</p>
-</dd>
-</dl>
-</div>
 <div class="paragraph">
-<p><strong>总结一下：</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>JDK用于开发目的，而JRE用于运行Java程序。</p>
-</li>
-<li>
-<p>JDK和JRE都包含JVM，因此我们可以运行Java程序。</p>
-</li>
-<li>
-<p>JVM是Java编程语言的核心，并提供平台独立性。</p>
-</li>
-</ol>
-</div>
-<div class="imageblock kroki">
-<div class="content">
-<img src="_images/diag-45b19744f6743a5bd7fc842b283ef00d7e07d3e8.svg" alt="JDK &gt; JRE &gt; JVM &gt; JIT">
-</div>
-<div class="title">Figure 1. JDK &gt; JRE &gt; JVM &gt; JIT</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="一个-java-文件的运行过程"><a class="anchor" href="#一个-java-文件的运行过程"></a>一个 <code>.java</code> 文件的运行过程</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>javac hello.java</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>使用 <code>javac</code> 命令编译<code>.java</code> 文件为<code>.class</code>文件</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>java hello</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>运行 <code>.class</code> 文件</p>
-<div class="ulist">
-<ul>
-<li>
-<p>启动一个 JVM 进程</p>
-</li>
-<li>
-<p><code>java classloder</code> 加载 <code>class</code> 到 <code>JVM</code> 内存</p>
-</li>
-<li>
-<p><code>JVM</code> 基于自己的字节码执行引擎，来执行加载到内存里的类</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="jvm-组成"><a class="anchor" href="#jvm-组成"></a><code>JVM</code> 组成</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>线程共享</p>
-<div class="ulist">
-<ul>
-<li>
-<p>堆</p>
-<div class="ulist">
-<ul>
-<li>
-<p>用来放置 Java 对象实例</p>
-</li>
-<li>
-<p>堆是垃圾收集器重点照顾的区域</p>
-</li>
-<li>
-<p>堆内空间还会被不同的垃圾收集器进行进一步的细分，如新生代和老年代</p>
-<div class="ulist">
-<ul>
-<li>
-<p>新生代是大部分对象创建和销毁的区域</p>
-</li>
-<li>
-<p>老年代是放置长生命周期的对象或者对象太大，完全无法在新生代找到足够长的连续空闲空间，JVM 就会直接分配到老年代</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>方法区</p>
-<div class="ulist">
-<ul>
-<li>
-<p>用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>线程私有</p>
-<div class="ulist">
-<ul>
-<li>
-<p>程序计数器</p>
-<div class="ulist">
-<ul>
-<li>
-<p>当前线程所执行的字节码的行号指示器</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>虚拟机栈</p>
-<div class="ulist">
-<ul>
-<li>
-<p>内部保存一个个的栈帧(Stack Frame)，对应着一次次的 Java 方法调用。</p>
-</li>
-<li>
-<p>JVM 直接对 Java 栈的操作只有两个，就是对栈帧的压栈和出栈。</p>
-</li>
-<li>
-<p>栈帧中存储着局部变量表、操作数(operand)栈、动态链接、方法正常退出或者异常退出的定义等。</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>本地方法栈</p>
-<div class="ulist">
-<ul>
-<li>
-<p>和 Java 虚拟机栈是非常相似的，支持对 本地方法的调用</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<p>ClassLoader 负责加载字节码文件即 class 文件，class 文件在文件开头有特定的文件标示，并且 ClassLoader 只负责class 文件的加载，至于它是否可以运行，则由 Execution Engine 决定。</p>
 </div>
 </div>
 </div>
@@ -402,6 +268,11 @@
 </div>
 </li>
 </ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/class-lifecycle.png" alt="class lifecycle">
+</div>
 </div>
 </div>
 </div>
@@ -528,27 +399,27 @@
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="_images/diag-d8b3ed3d7943b56695508a41bd4126346e2a0266.svg" alt="Diagram">
+<img src="../_images/diag-d8b3ed3d7943b56695508a41bd4126346e2a0266.svg" alt="Diagram">
 </div>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Interview</a></span>
-  <span class="next"><a href="../spring/ioc.html">IOC and DI</a></span>
+  <span class="prev"><a href="jvm.html">JVM</a></span>
+  <span class="next"><a href="execution-engine.html">Execution Engine</a></span>
 </nav>
 </article>
   </div>
 </main>
 </div>
 <footer class="footer">
-  <p>Last updated on 2023-07-23 23:14:43</p>
+  <p>Last updated on 2023-08-08 05:37:34</p>
 </footer>
-<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
-<script async src="../../_/js/vendor/highlight.js"></script>
-<script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
-<script async src="../../search-index.js"></script>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
   </body>
 </html>

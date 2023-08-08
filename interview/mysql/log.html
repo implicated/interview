@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>索引 :: Implicated</title>
-    <link rel="canonical" href="https://docs.implicated.com/interview/mysql/index.html">
-    <link rel="prev" href="log.html">
-    <link rel="next" href="innodb.html">
+    <title>Log :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/mysql/log.html">
+    <link rel="prev" href="run.html">
+    <link rel="next" href="index.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -147,10 +147,10 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="run.html">SQL 语句的执行过程</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="log.html">Log</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="index.html">索引</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -180,7 +180,7 @@
   <ul>
     <li><a href="../index.html">Interview</a></li>
     <li>MySQL</li>
-    <li><a href="index.html">索引</a></li>
+    <li><a href="log.html">Log</a></li>
   </ul>
 </nav>
 </div>
@@ -189,95 +189,59 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">索引</h1>
+<h1 class="page">Log</h1>
 <div class="sect1">
-<h2 id="索引失效"><a class="anchor" href="#索引失效"></a>索引失效</h2>
+<h2 id="read-log"><a class="anchor" href="#read-log"></a>read log</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>列上计算(有函数)</p>
+<p>InnoDB 引擎特有的日志。</p>
 </li>
 <li>
-<p>like 左%</p>
+<p>redo log 是物理日志，记录的是“在某个数据页上做了什么修改”。</p>
 </li>
 <li>
-<p>联合索引顺序不对</p>
-</li>
-<li>
-<p>MySQL自己选错了</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>force index</code></p>
-</li>
-</ul>
-</div>
+<p>redo log 是固定大小，循环写，不能持久化。</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sql优化"><a class="anchor" href="#sql优化"></a>SQL优化</h2>
+<h2 id="undo-log"><a class="anchor" href="#undo-log"></a>undo log</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="binlog"><a class="anchor" href="#binlog"></a>binlog</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>避免使用select</p>
+<p>MySQL Server 层的日志。</p>
 </li>
 <li>
-<p>用union all代替union</p>
-</li>
+<p>binlog 是逻辑日志，记录的是这个语句的原始逻辑，给 ID=2 这一行的c字段加1。</p>
+<div class="ulist">
+<ul>
 <li>
-<p>小表驱动大表</p>
-</li>
-<li>
-<p>批量操作</p>
-</li>
-<li>
-<p>多用limit</p>
-</li>
-<li>
-<p>in中值太多</p>
-</li>
-<li>
-<p>增量查询</p>
-</li>
-<li>
-<p>高效的分页</p>
-</li>
-<li>
-<p>用连接查询代替子查询</p>
-</li>
-<li>
-<p>join的表不宜过多</p>
-</li>
-<li>
-<p>join时要注意</p>
-</li>
-<li>
-<p>控制索引的数量</p>
-</li>
-<li>
-<p>选择合理的字段类型</p>
-</li>
-<li>
-<p>提升group by的效率</p>
-</li>
-<li>
-<p>索引优化</p>
+<p>binlog 有两种格式， statement 格式的话是记sql语句， row格式会记录行的内容，记两条，更新前和更新后都有。</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><a href="https://mp.weixin.qq.com/s/MLb-vUrJHukSA5PqqVMvSw">read more</a></p>
+</li>
+<li>
+<p>binlog 是可以追加写入的。文件写到一定大小后会切换到下一个，并不会覆盖以前的日志。</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="log.html">Log</a></span>
-  <span class="next"><a href="innodb.html">InnoDB</a></span>
+  <span class="prev"><a href="run.html">SQL 语句的执行过程</a></span>
+  <span class="next"><a href="index.html">索引</a></span>
 </nav>
 </article>
   </div>

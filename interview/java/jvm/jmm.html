@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Runtime Data Area :: Implicated</title>
+    <link rel="canonical" href="https://docs.implicated.com/interview/java/jvm/jmm.html">
+    <link rel="prev" href="native-interface.html">
+    <link rel="next" href="jvm-options.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://docs.implicated.com">Implicated</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="interview" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Interview</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Java Interview</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JDK 源码</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text"><a href="https://implicated.github.io/jdk-docs/index.html" target="_blank" rel="noopener">手动编译 JDK 源码</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">并发编程</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">JVM</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="java-platform.html">Java Platform</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bytecode.html">ByteCode</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="jvm.html">JVM</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="classloader.html">Classloader</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="execution-engine.html">Execution Engine</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="native-interface.html">Native Interface</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="4">
+    <a class="nav-link" href="jmm.html">Runtime Data Area</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jvm-options.html">JVM 启动参数</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="gc.html">垃圾回收</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="jdk-clt.html">JDK 内置命令行工具</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="qa.html">Q&amp;A</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ref.html">Ref</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Java 框架</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/ioc.html">IOC and DI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/aop.html">AOP</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Spring Boot</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spring/spring-boot-start.html">Spring Boot 启动流程</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">MySQL</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/run.html">SQL 语句的执行过程</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/log.html">Log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../mysql/index.html">索引</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../mysql/innodb.html">InnoDB</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Interview</a></li>
+    <li>Java</li>
+    <li>JVM</li>
+    <li><a href="jvm.html">JVM</a></li>
+    <li><a href="jmm.html">Runtime Data Area</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Runtime Data Area</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Runtime Data Area 是存放数据的，在逻辑上将内存划分为 线程栈（thread stacks）和堆内存 （heap）两个部分。 如下图所示：</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="../_images/diag-c953ed801b1e895f66be838ba832b709321786be.svg" alt="Diagram">
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>总体来看，JVM 把内存划分为“栈(stack)”与“堆(heap)”两大类，为何要这样设计？</p>
+</div>
+<div class="paragraph">
+<p>个人理解，程序运行时，内存中的信息大致分为两类，</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>一是跟程序执行逻辑相关的指令数据，这类数据通常不大，而且生命周期短；</p>
+</li>
+<li>
+<p>一是跟对象实例相关的数据，这类数据可能会很大，而且可以被多个线程长时间内反复共用，比如字符串常量、缓存对象这类。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="堆内存"><a class="anchor" href="#堆内存"></a>堆内存</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>堆内存又称为“共享堆”，堆中的所有对象，可以被所有线程访问, 只要他们能拿到对象的引用地址。</p>
+</div>
+<div class="paragraph">
+<p>如果一个线程可以访问某个对象时，也就可以访问该对象的成员变量。 如果两个线程同时调用某个对象的同一方法，则它们都可以访问到这个对象的成员变量，但每个线程的局部变量副本是独立的。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>堆</p>
+<div class="ulist">
+<ul>
+<li>
+<p>用来放置 Java 对象实例</p>
+</li>
+<li>
+<p>堆是垃圾收集器重点照顾的区域</p>
+</li>
+<li>
+<p>堆内空间还会被不同的垃圾收集器进行进一步的细分，如年轻代和老年代</p>
+<div class="ulist">
+<ul>
+<li>
+<p>年轻代是大部分对象创建和销毁的区域</p>
+<div class="ulist">
+<ul>
+<li>
+<p>分为新生代 <code>Eden</code> 区和两个存活区 <code>Survivor</code> 区（ <code>From Survivor</code>、<code>To Survivor</code>），比例 8:1:1</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>老年代是放置长生命周期的对象或者对象太大，完全无法在新生代找到足够长的连续空闲空间，JVM 就会直接分配到老年代</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>非堆（aka 方法区、永久代、元空间）</p>
+<div class="ulist">
+<ul>
+<li>
+<p>用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="线程栈"><a class="anchor" href="#线程栈"></a>线程栈</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>每个正在运行的线程，都有自己的线程栈。 线程栈包含了当前正在执行的方法链/调用链上的所有方法的状态信息 ，是线程私有。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>程序计数器</p>
+<div class="ulist">
+<ul>
+<li>
+<p>当前线程所执行的字节码的行号指示器</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>虚拟机栈</p>
+<div class="ulist">
+<ul>
+<li>
+<p>内部保存一个个的栈帧(Stack Frame)，对应着一次次的 Java 方法调用。</p>
+</li>
+<li>
+<p>JVM 直接对 Java 栈的操作只有两个，就是对栈帧的压栈和出栈。</p>
+</li>
+<li>
+<p>栈帧中存储着局部变量表、操作数(operand)栈、动态链接、方法正常退出或者异常退出的定义等。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>本地方法栈</p>
+<div class="ulist">
+<ul>
+<li>
+<p>和 Java 虚拟机栈是非常相似的，支持对 本地方法的调用</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cpu指令乱序和内存屏障"><a class="anchor" href="#cpu指令乱序和内存屏障"></a>CPU指令乱序和内存屏障</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="native-interface.html">Native Interface</a></span>
+  <span class="next"><a href="jvm-options.html">JVM 启动参数</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Last updated on 2023-08-08 05:37:34</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
