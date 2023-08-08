@@ -1,0 +1,64 @@
+= InnoDB
+
+.结构图
+image::innodb.png[link=https://dev.mysql.com/doc/refman/8.0/en/innodb-architecture.html]
+
+== 内存结构
+
+=== Buffer Pool
+
+缓冲池是主内存中 InnoDB 在被访问时缓存表和索引数据的区域。缓冲池允许直接从内存访问频繁使用的数据，从而加快了处理速度。
+
+=== Change Buffer
+
+更改缓冲区是一种特殊的数据结构，用于在辅助索引页不在缓冲池中时缓存对这些页的更改。缓冲的更改可能由 INSERT 、 UPDATE 或 DELETE 操作(DML)引起，稍后当其他读取操作将页面加载到缓冲池中时，这些更改将被合并。
+
+=== Adaptive Hash Index
+
+Innodb引擎的一个特殊功能，当它注意到某些索引值使用的非常频繁，发现建立哈希索引（又称散列索引）可以带来速度的提升，Innodb就会在自己的内存缓冲区（Buffer Pool）里，开辟一块区域，建立自适应哈希索引（Adaptive Hash Index，AHI），以便加速查询。
+
+这种索引属于数据库的自优化，无需DBA进行人为调整。其本质是将频繁访问数据页的索引键值以“Key”放在缓存中，“Value”为该索引键值匹配完整记录所在页面（Page）的位置，通过缩短寻路路径（Search Path）从而提升MySQL查询性能的一种方式。
+
+=== Log Buffer
+
+日志缓冲区是保存要写入磁盘上的日志文件的数据的内存区。日志缓冲区大小由 innodb_log_buffer_size 变量定义。默认大小为16MB。日志缓冲区的内容会定期刷新到磁盘。大型日志缓冲区使大型事务能够运行，而无需在事务提交之前将 redo log 数据写入磁盘。因此，如果您有更新、插入或删除许多行的事务，则增加日志缓冲区的大小可以节省磁盘I/O。
+
+== 磁盘结构
+
+=== Tablespaces
+
+表空间是InnoDB存储引擎中逻辑结构的最高层，所有数据逻辑上都存储在表空间中。
+
+==== System Tablespace
+
+系统表空间是 InnoDB 数据字、双写缓冲、写缓冲和回滚日志的存储位置，如果关闭独立表空间，它也将存储所有表数据和索引。
+
+==== File-Per-Table Tablespaces
+
+开启独立表空间之后，
+
+[source,ini,indent=0,options=nowrap]
+----
+[mysqld]
+innodb_file_per_table=ON
+----
+
+InnoDB 会为每个数据库单独创建子文件夹，数据库文件夹内为每个数据表单独建立一个表空间文件 table.ibd 用于存放每个表的数据、索引和插入缓冲 Bitmap 页，同时创建一个 table.frm 文件用于保存表结构信息。其他类型的信息，如回滚信息、插入缓冲索引页、系统事务信息、二次写缓冲等仍存放于系统表空间内。因此即使使用独立表空间，系统表空间也会不断增长。每个独立表空间的初始大小是 96KB。
+
+==== General Tablespaces
+
+==== Undo Tablespaces
+
+Undo 表空间用于存放一个或多个 undo log 文件。
+
+==== Temporary Tablespaces
+
+===== Session Temporary Tablespaces
+
+===== Global Temporary Tablespace
+
+=== Doublewrite Buffer 
+
+=== Redo Log
+
+=== Undo Logs

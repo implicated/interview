@@ -1,7 +1,5 @@
 = Java Interview
 
-include::../nav.adoc[]
-
 ****
 
 使用版本

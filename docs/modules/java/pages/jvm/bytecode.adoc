@@ -1,0 +1,25 @@
+= ByteCode
+
+Java 中的字节码，是值 Java 源代码编译后的中间代码格式，一般称为字节码文件。
+
+== 字节码文件中包含哪些内容？
+
+字节码文件中，一般包含以下部分：
+
+* 版本号信息
+* 静态常量池（符号常量）
+* 类相关的信息
+* 字段相关的信息
+* 方法相关的信息
+* 调试相关的信息
+
+可以说，大部分信息都是通过常量池中的符号常量来表述的。
+
+== Demo
+
+[source,shell,indent=0,options=nowrap]
+----
+cd $HOME/Bunny/interview/docs/modules/java/attachments
+javac -g Hello.java
+javap -c -verbose Hello.class
+----

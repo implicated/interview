@@ -3,3 +3,5 @@ title: Interview
 version: ~
 nav:
 - modules/ROOT/nav.adoc
+- modules/java/nav.adoc
+- modules/mysql/nav.adoc

@@ -1,0 +1,58 @@
+= JVM 启动参数
+
+直接通过命令行启动 Java 程序的格式为:
+
+[source,shell,indent=0,options=nowrap]
+----
+java [options] classname [args]
+java [options] -jar filename [args]
+----
+
+其中:
+
+* `[options]` 部分称为 `*“JVM 选项”*`，对应 IDE 中的 `VM options`, 可用 `jps -v` 查看。
+* `[args]` 部分是指 `*“传给main函数的参数”*`，对应 IDE 中的 `Program arguments`, 可用 `jps -m` 查看。
+
+JVM 的启动参数, 从形式上可以简单分为：
+
+* 以 `*-*` 开头为标准参数，所有的 JVM 都要实现这些参数，并且向后兼容。
+* 以 `*-X*` 开头为非标准参数， 基本都是传给 JVM 的，默认 JVM 实现这些参数的功能，但是并不保证所有 JVM 实现都满足，且不保证向后兼容。
+* 以 `*-XX:*` 开头为非稳定参数, 专门用于控制 JVM 的行为，跟具体的 JVM 实现有关，随时可能会在下个版本取消。
+* `*-XX:+-Flags`* 形式, `+-` 是对布尔值进行开关。
+* `*-XX:key=value*` 形式, 指定某个选项的值。
+
+== 设置系统属性
+
+== Agent 相关的选项
+
+== JVM 运行模式
+
+== 设置堆内存
+
+JVM 总内存 = 堆 + 栈 + 非堆 + 堆外内存。
+
+-Xmx:: 指定最大堆内存。如 `-Xmx4g`。这只是限制了 Heap 部分的最大值为 4g。这个内存不包括栈内存，也不包括堆外使用的内存。
+-Xms:: 指定堆内存空间的初始大小。 如 `-Xms4g`。 而且指定的内存大小，并不是操作系统实际分配的初始值，而是 GC 先规划好，用到才分配。 专用服务器上需要保持 `-Xms` 和 `-Xmx` 一致，否则应用刚启动可能就有好几个 FullGC。当两者配置不一致时，堆内存扩容可能会导致性能抖动。
+-Xmn:: 等价于 `-XX:NewSize`，使用 G1 垃圾收集器 不应该 设置该选项，在其他的某些业务场景下可以设置。官方建议设置为 `-Xmx` 的 1/2 ~ 1/4。
+-XX:MaxPermSize=size:: 这是 JDK1.7 之前使用的。Java8 默认允许的 Meta 空间无限大，此参数无效。
+-XX:MaxMetaspaceSize=size:: `Java8` 默认不限制 `Meta` 空间, 一般不允许设置该选项。
+XX:MaxDirectMemorySize=size:: 系统可以使用的最大堆外内存，这个参数跟 `-Dsun.nio.MaxDirectMemorySize` 效果相同。
+-Xss:: 设置每个线程栈的字节数。 例如 `-Xss1m` 指定线程栈为 `1MB`，与 `-XX:ThreadStackSize=1m` 等价
+
+.注：jdk8 开始，用 `MetaSpace` 区取代了 `Perm` 区（永久代），所以相应的 `jvm` 参数变成 `-XX:MetaspaceSize` 及 `-XX:MaxMetaspaceSize` 。
+image::jvm-options.png[]
+
+== GC 日志相关的参数
+
+== 指定垃圾收集器相关参数
+
+* `-XX:+UseG1GC` ：使用 G1 垃圾回收器
+* `-XX:+UseConcMarkSweepGC` ：使用 CMS 垃圾回收器
+* `-XX:+UseSerialGC` ：使用串行垃圾回收器
+* `-XX:+UseParallelGC` ：使用并行垃圾回收器
+
+== 特殊情况执行脚本的参数
+
+== Ref
+
+https://www.oracle.com/java/technologies/javase/vmoptions-jsp.html[Java HotSpot VM Options^]

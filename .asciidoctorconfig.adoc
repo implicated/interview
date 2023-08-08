@@ -4,3 +4,4 @@
 :sectnums:
 :sectnumlevels: 2
 :!figure-caption:
+:!table-caption:

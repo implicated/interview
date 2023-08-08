@@ -1,0 +1,63 @@
+= JDK 内置命令行工具
+
+JDK 自带的工具和程序可以分为 2 大类型：
+
+* 开发工具
+* 诊断分析工具
+
+== Dev Tools
+
+|===
+| 工具 |简介
+| java | Java 应用的启动程序
+| javac | JDK 内置的编译工具
+| javap | 反编译 class 文件的工具
+| javadoc | 根据 Java 代码和标准注释，自动生成相关的 API 说明文档
+| javah | JNI 开发时，根据 Java 代码生成需要的 .h 文件。
+| extcheck | 检查某个 jar 文件和运行时扩展 jar 有没有版本冲突，很少使用
+| jdb | Java Debugger 可以调试本地和远端程序，属于 JPDA 中的一个 Demo 实现，供其他调试器参考。开发时很少使用
+| jdeps | 探测 class 或 jar 包需要的依赖
+| jar | 打包工具，可以将文件和目录打包成为 .jar 文件；.jar 文件本质上就是 zip 文件，只是后缀不同。使用时按顺序对应好选项和参数即可。
+| keytool | 安全证书和密钥的管理工具（支持生成、导入、导出等操作）
+| jarsigner | jar 文件签名和验证工具
+| policytool | 实际上这是一款图形界面工具，管理本机的 Java 安全策略
+|===
+
+== 诊断分析工具
+
+=== jps
+
+类似 `ps`，用于展示 Java 进程信息（列表）。
+
+=== jstat
+
+jstat 用来监控 JVM 内置的各种统计信息，主要是内存和 GC 相关的信息。
+
+=== jmap
+
+jmap 主要用来 Dump 堆内存。
+
+=== jcmd
+
+jcmd 是 JDK 8 推出的一款本地诊断工具，只支持连接本机上同一个用户空间下的 JVM 进程。用来来取代 jmap。
+
+=== jstack
+
+jstack 工具可以打印出 Java 线程的调用栈信息（Stack Trace）。一般用来查看存在哪些线程，诊断是否存在死锁等。
+
+=== jinfo
+
+jinfo 用来查看具体生效的配置信息以及系统属性，还支持动态增加一部分参数。
+
+=== jrunscript 和 jjs
+
+可以用来执行 JS 代码
+
+* jrunscript 可以直接用来执行 JS 代码块或 JS 文件。
+* jjs 则只能交互模式，但是可以指定 JavaScript 支持的 ECMAScript 语言版本，比如 ES5 或者 ES6。
+
+如果是 JDK 9 及以上的版本，则有一个更完善的 REPL 工具——JShell，可以直接解释执行 Java 代码。
+
+== Ref
+
+https://docs.oracle.com/javase/8/docs/technotes/tools/index.html[JDK Development Tools^]

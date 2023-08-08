@@ -1,0 +1,18 @@
+= JVM
+
+JVM 全称是 Java Virtual Machine，中文称为 Java 虚拟机。
+
+JVM 是 Java 程序运行的底层平台，与 Java 支持库一起构成了 Java 程序的执行环境。
+
+分为 JVM 规范和 JVM 实现两个部分。简单来说，Java 虚拟机就是指能执行标准 Java 字节码的虚拟计算机。
+
+== JVM 组成
+
+JVM 主要由四大部分组成：
+
+* ClassLoader（类加载器）
+* Runtime Data Area（运行时数据区，内存分区）
+* Execution Engine（执行引擎）
+* Native Interface（本地库接口）
+
+image::jvm.png[]
